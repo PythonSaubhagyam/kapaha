@@ -84,8 +84,15 @@ export default function Footer() {
             {/* <Stack align={"flex-start"} color="brand.900"> */}
 
             {/* <SimpleGrid columns={{ base: 1, md: 3 }}> */}
-            <Stack align={"flex-start"} color="text.300">
-              <ListHeader style={{ color: "#436131" }}>Quick Links</ListHeader>
+            <Stack color="text.300">
+              <Stack
+                ml={{ md: "50%" }}
+                align={{ md: "flex-start", base: "center" }}
+              >
+                <ListHeader style={{ color: "text.500" }}>
+                  Quick Links
+                </ListHeader>
+              </Stack>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -152,7 +159,7 @@ export default function Footer() {
                     <Grid
                       align={"flex"}
                       position={"absolute"}
-                      marginTop={"-220px"}
+                      marginTop={"-168px"}
                       marginLeft={"140px"}
                       flexDirection={"column"}
                     >
@@ -253,10 +260,11 @@ export default function Footer() {
             </Stack>
             {/* </SimpleGrid> */}
             {/* </Stack> */}
-           
-             
-            <Stack align={"flex-start"} color="text.300" mt={{ md: 3 }}>
-              <ListHeader align={"flex-start"}>Customer Support</ListHeader>
+
+            <Stack color="text.300" mt={{ md: 3 }}>
+              <Stack align={{ md: "flex-start", base: "center" }}>
+                <ListHeader gap={"3"}>Customer Support</ListHeader>
+              </Stack>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -318,9 +326,11 @@ export default function Footer() {
               {/* </Stack>
 
             <Stack align={"flex-start"} gap={"3"} ml={{ lg: 10 }} color="brand.900"> */}
-              <ListHeader align={"flex-start"} marginBottom={5}>
-                We Accepts Payments via
-              </ListHeader>
+              <Stack align={{ md: "flex-start", base: "center" }}>
+                <ListHeader marginBottom={5}>
+                  We Accepts Payments via
+                </ListHeader>
+              </Stack>
               <Image
                 src={
                   "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/footer/payment method.png hnghngh.png"
