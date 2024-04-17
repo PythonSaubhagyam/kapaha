@@ -90,8 +90,24 @@ export default function InspireSupport() {
           secondUrl={"/inspire-and-support"}
         />{" "}
       </Container>
-      <Container maxW={"container.xl"} mb={4} px={0}>
-        <Image src={require("../assets/Inspire & Support/inspire.jpg")} />
+      <Container maxW={"container.xl"} py={8} px={0} position="relative">
+        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/inspire and support.jpg" />
+
+        <Text
+          pb={2}
+          color={"brand.100"}
+          textAlign={"center"}
+          fontSize={{ lg: "7xl", md: "4xl", base: "xl" }}
+          fontWeight="600"
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          zIndex="1"
+          // Optional: Add background to improve text readability
+        >
+          Inspire & Support
+        </Text>
       </Container>
       <Container maxW={"6xl"} py={2}>
         {Posts.map((postDetails) => (

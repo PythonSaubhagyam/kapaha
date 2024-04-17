@@ -164,28 +164,16 @@ export default function Home() {
           color={"text.300"}
           px={{ base: 15, lg: 20 }}
           fontSize={{ base: "sm", lg: "lg" }}
+          textAlign={"justify"}
         >
           A Manufacturer and Exporter of Knitted garments focusing /
           specialising in Cotton and Bamboo clothing. Over 7 years of experience
           in working with Top Brands in India. We assure our customers of the
           highest quality and outstanding service.
-          <br />
-        </Text>
-        <Text
-          color={"text.300"}
-          px={{ base: 15, lg: 20 }}
-          fontSize={{ base: "sm", lg: "lg" }}
-        >
+          <br/><br/>
           Management structure : Our Company is committed to total quality
           control & timely shipments.
-          <br />
-          <br />
-        </Text>
-        <Text
-          color={"text.300"}
-          px={{ base: 15, lg: 20 }}
-          fontSize={{ base: "sm", lg: "lg" }}
-        >
+          <br/><br/>
           We have professional merchandisers who handle all details of specific
           customers, which ensures clear - communication & execution of orders .
           We specialise in the middle to higher end of market . We understand
@@ -193,8 +181,9 @@ export default function Home() {
           making photo & salesmen samples for our customer as per their
           requirements.
           <br />
-          <br />
+          <br/>
         </Text>
+        
 
         <Link
           fontWeight={700}
@@ -221,7 +210,7 @@ export default function Home() {
           }}
         />
 
-        <UnorderedList m={3}>
+        <UnorderedList m={{md:3,base:4}}>
           <ListItem m={2}>
             This Face Mask are made with 2 layers of white cotton.
           </ListItem>
@@ -257,8 +246,8 @@ export default function Home() {
             transition: "opacity 0.7s", // Note the corrected syntax here
           }}
         />
-        <Flex alignItems={"center"} justifyContent={"space-between"}>
-          <UnorderedList m={3} width={"48%"}>
+        <Flex flexDirection={{md:"row",base:"column"}} alignItems={"center"} justifyContent={"space-between"}>
+          <UnorderedList m={3} width={{md:"48%",base:"90%"}}>
             <ListItem m={2}>
               <b>Care Instructions :-</b> Laundry Wash, In Cool Water, Do Not
               Use Brush
@@ -279,10 +268,10 @@ export default function Home() {
               <b>Unifit :-</b> Fits all face types.
             </ListItem>
           </UnorderedList>
-          <LazyLoadImage
+          <Image
             src={require("../assets/Home/mask mm.png")}
-            width={445}
-            height={345}
+            width={{md:445,base:200}}
+            height={{md:345,base:150}}
             alt=""
             style={{
               opacity: 1,
@@ -291,64 +280,21 @@ export default function Home() {
           />
         </Flex>
         <Link
-          fontWeight={700}
+          fontWeight={600}
           color={"brand.500"}
           as={RouterLink}
           to={"/"}
           border={"1px"}
           borderColor={"brand.500"}
-          p={3}
+          px={3}
+          py={2}
+          _hover={{bgColor:"brand.500",color:"#fff",textDecoration:"none"}}
           borderRadius={"10px"}
         >
           Buy now
         </Link>
-        <LazyLoadImage
-          w="100%"
-          mx="auto"
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-        <Grid
-          templateColumns={{
-            base: "repeat(2, 1fr)",
-            md: "repeat(2, 1fr)",
-            lg: "repeat(4,1fr)",
-          }}
-          gap={2}
-          my={6}
-          mx={{ md: "15%", base: 3 }}
-        >
-          {imageInfo?.map((data) => (
-            <GridItem mx={5}>
-              <Flex
-                flexDirection={"column"}
-                alignItems={"center"}
-                justifyContent={"center"}
-              >
-                <LazyLoadImage
-                  cursor={"pointer"}
-                  transition="all 1s ease"
-                  _hover={{
-                    transform: "scale(1.25)",
-                  }}
-                  src={data.src}
-                  alt={data.name}
-                  style={{
-                    opacity: 1,
-                    transition: "opacity 0.7s",
-                    width: "100px",
-                    // Note the corrected syntax here
-                  }}
-                />
-                {/* <Text textAlign={"center"} fontSize={"14px"} mt={2}>
-                  {data.name}
-                </Text> */}
-              </Flex>
-            </GridItem>
-          ))}
-        </Grid>
+       
+        <Image my={5}  w={{md:"65%",base:"90%"}} src={require("../assets/Home/kapah_icon.jpg")} />
       </Container>
 
       <Container backgroundColor={"bg.500"} maxW={"container.xl"} py={2}>
@@ -392,7 +338,7 @@ export default function Home() {
         </SimpleGrid>
       </Container>
      
-      <Container maxW={{ base: "100vw", md: "container.xl" }}>
+      <Container maxW={{ base: "100vw", md: "container.xl" }} px={0}>
         <Box
           w="100%"
           backgroundSize="100%"
@@ -401,13 +347,13 @@ export default function Home() {
         >
           <Heading
             color="brand.500"
-            size="lg"
+            fontSize={{md:33,base:20}}
             mx="auto"
             align={"center"}
             my={"5"}
             pb={"10px"}
           >
-            SERVING TO THE COUNTRIES
+            OUR SERVICES ARE AVAILABLE IN
           </Heading>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>
