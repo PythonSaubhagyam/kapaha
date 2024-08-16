@@ -29,7 +29,13 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaStreetView } from "react-icons/fa";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 
+import { useLocation } from "react-router-dom";
 export default function StoreLocator() {
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+ const IsMobileView = searchParams.get("mobile") ?? "false";
+
+
   const [storeData, setStoreData] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCities, setSelectedCities] = useState([]);
@@ -58,7 +64,7 @@ export default function StoreLocator() {
 
   return (
     <>
-      <Navbar />
+     {IsMobileView !== "true" && <Navbar />}
 
       <Container maxW="container.xl" alignContent={"flex-start"}>
         <BreadCrumbCom second={"Store Locator"} secondUrl={"/store-locator"} />
@@ -386,7 +392,10 @@ export default function StoreLocator() {
         </Flex>
       </Container>
 
-      <Footer />
+      
+     {IsMobileView !== "true" && <Footer />}
+
+
     </>
   );
 }
