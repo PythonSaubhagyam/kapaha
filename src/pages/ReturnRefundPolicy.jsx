@@ -66,7 +66,7 @@ export default function ReturnRefundPolicy() {
           fontWeight={"600"}
           color="brand.500"
           textDecor="none"
-          pt={8}
+         py={4}
         >
           Return will be processed only if
         </Heading>
