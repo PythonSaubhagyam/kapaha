@@ -359,7 +359,7 @@ export default function Home() {
         <Box display={"flex"} justifyContent={"center"}>
           <LazyLoadImage
             src={
-              "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/Map.webp"
+              require("../assets/001.jpg")
             }
             w={{ base: "100%", md: "100%" }}
             alt=""
