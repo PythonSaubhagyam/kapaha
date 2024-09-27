@@ -102,7 +102,7 @@ export default function Home() {
   const navigate = useNavigate();
   useEffect(() => {
     CheckOrSetUDID();
-    getHomePageData();
+    //getHomePageData();
     getBlogs();
   }, []);
 
@@ -121,6 +121,7 @@ export default function Home() {
     if (response.data.status === true) {
       setBlogs(response.data.blogs);
     }
+    setLoading(false);
   }
 
   return (
