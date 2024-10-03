@@ -145,7 +145,7 @@ export default function Home() {
       <Container
         maxW={"container.xl"}
         mb={8}
-        mt={2}
+        //mt={2}
         px={0}
         textAlign={"center"}
       >
@@ -155,9 +155,9 @@ export default function Home() {
           color={"text.500"}
           bgColor={"bg.500"}
           textAlign={{ base: "center", md: "start" }}
-          px={{ base: 2, md: 8 }}
+          //px={{ base: 2, md: 8 }}
           py={4}
-          my={7}
+         // my={7}
         >
           About कपा:
         </Text>
@@ -360,7 +360,7 @@ export default function Home() {
         <Box display={"flex"} justifyContent={"center"}>
           <LazyLoadImage
             src={
-              require("../assets/001.jpg")
+              "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/Map.webp"
             }
             w={{ base: "100%", md: "100%" }}
             alt=""
