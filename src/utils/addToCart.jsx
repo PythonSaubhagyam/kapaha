@@ -7,7 +7,7 @@ import CheckOrSetUDID from "./checkOrSetUDID";
 export default async function AddToCart(product_id, quantity) {
   const { ToastContainer, toast } = createStandaloneToast();
   const loginInfo = checkLogin();
-  const checkOrSetUDIDInfo = CheckOrSetUDID();
+  const checkOrSetUDIDInfo = await CheckOrSetUDID();
   let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
 
   try {
