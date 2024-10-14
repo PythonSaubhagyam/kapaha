@@ -49,6 +49,7 @@ import CheckOrSetUDID from "../utils/checkOrSetUDID";
 import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
+import ScrollToTop from "../components/ScrollToTop";
 
 const imageInfo = [
   {
@@ -382,7 +383,9 @@ export default function Home() {
         </Box>
       
       </Container>
+      <ScrollToTop />
       <Footer />
+     
       {/* </>
       )} */}
     </>
