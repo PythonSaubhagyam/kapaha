@@ -15,6 +15,10 @@ import { TfiYoutube } from "react-icons/tfi";
 import { FiInstagram } from "react-icons/fi";
 import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { IoMail } from "react-icons/io5";
+import CartPopUp from "./CartPopUp";
+import checkLogin from "../utils/checkLogin";
+import CheckOrSetUDID from "../utils/checkOrSetUDID";
+import WhatsUp from "../components/WhatsUp";
 const ListHeader = ({ children }) => {
   return (
     <Text fontWeight={"500"} fontSize={"lg"} mb={1} color="brand.100">
@@ -26,7 +30,13 @@ const ListHeader = ({ children }) => {
 export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [isMobiles, setIsMobiles] = useState(window.innerWidth <= 600);
+  const loginInfo = checkLogin();
+  const checkOrSetUDIDInfo = CheckOrSetUDID();
+  let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
 
+  if (loginInfo.isLoggedIn === true) {
+    headers = { Authorization: `token ${loginInfo.token}` };
+  }
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 600);
@@ -55,7 +65,7 @@ export default function Footer() {
             fontSize={{ base: "sm", lg: "md" }}
             className="scrolling-text"
           >
-            For deliveries in the USA, UAE, UK, Singapore, Canada and Australia email us at {" "}
+           For deliveries in the USA, UAE, UK, Singapore, Canada and Australia email us at {" "}
             <Link
               target="_blank"
               href="mailto:export@suryanorganic.com"
@@ -64,7 +74,7 @@ export default function Footer() {
             >
               export@suryanorganic.com
             </Link>{" "}
-            or WhatsApp us at {" "}
+            or WhatsApp us at{" "}
             <Link
               target="_blank"
               href="https://wa.me/+916354800089?text=Hello%2C%20this%20is%20a%20test%20message"
@@ -86,12 +96,20 @@ export default function Footer() {
             <Stack color="text.300">
               <Stack
                 ml={{ md: "50%" }}
-                
+               
               >
                 <ListHeader style={{ color: "text.500" }}>
                   Quick Links
                 </ListHeader>
               </Stack>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/"}
+              >
+                Home
+              </Link>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -133,54 +151,135 @@ export default function Footer() {
                 Contact Us
               </Link>
             </Stack>
+
             <Stack align={"flex-start"} color="text.300">
               {!isMobile && <ListHeader>&nbsp;</ListHeader>}
-              
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/faq"}
-                    >
-                      FAQ
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/terms-and-conditions"}
-                    >
-                      Terms & Conditions
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/shipping-policy"}
-                    >
-                      Shipping Policy
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/return-and-refund-policy"}
-                    >
-                      Return & Refund Policy
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/inspire-and-support"}
-                    >
-                      Inspire & Support
-                    </Link>
-                 
+              {/* <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/store-locator"}
+              >
+                Store Locator
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/contact-us"}
+              >
+                Contact Us
+              </Link> */}
+
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/faq"}
+              >
+                FAQ
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/terms-and-conditions"}
+              >
+                Terms & Conditions
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/shipping-policy"}
+              >
+                Shipping Policy
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/return-and-refund-policy"}
+              >
+                Return & Refund Policy
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/inspire-and-support"}
+              >
+                Inspire & Support
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/privacy-policy"}
+              >
+                Privacy Policy
+              </Link>
             </Stack>
             {/* </SimpleGrid> */}
             {/* </Stack> */}
-
+            {/* <Stack color="text.300" mt={{ md: 3 }}>
+              <Stack>
+                <ListHeader gap={"3"}>Partner With Us</ListHeader>
+                <Link
+                  textDecoration="none"
+                  _hover={{ color: "text.500" }}
+                  as={RouterLink}
+                  alignItems={"center"}
+                  to={"/franchise"}
+                >
+                  SOSE - Franchise
+                </Link>
+              </Stack> */}
+            {/* <Stack>
+                <ListHeader>Connect With Us</ListHeader>
+                <Flex
+                  gap="3"
+                  sx={{ direction: "column", alignItems: "center" }}
+                >
+                  <Link
+                    isExternal={true}
+                    _hover={{ color: "text.500" }}
+                    as={RouterLink}
+                    to={"https://www.facebook.com/SoseOrganicAndNaturalStore/"}
+                  >
+                    <FaFacebookF fontSize={"1.5rem"} />
+                  </Link>
+                  <Link
+                    _hover={{ color: "text.500" }}
+                    isExternal={true}
+                    as={RouterLink}
+                    to={"https://www.instagram.com/sose_organic/"}
+                  >
+                    <FiInstagram fontSize={"1.7rem"} />
+                  </Link>
+                  <Link
+                    _hover={{ color: "text.500" }}
+                    isExternal={true}
+                    as={RouterLink}
+                    to={
+                      "https://api.whatsapp.com/send/?phone=7405095969&text&type=phone_number&app_absent=0"
+                    }
+                  >
+                    <FaWhatsapp fontSize={"1.7rem"} />
+                  </Link>
+                  <Link
+                    _hover={{ color: "text.500" }}
+                    isExternal={true}
+                    as={RouterLink}
+                    to={
+                      "https://www.youtube.com/channel/UCCpb64CX-rqBBZaWpHsNCHw"
+                    }
+                  >
+                    <TfiYoutube fontSize={"1.7rem"} />
+                  </Link>
+                </Flex>
+              </Stack> */}
+            {/* </Stack> */}
             <Stack color="text.300" mt={{ md: 3 }}>
               <Stack >
                 <ListHeader gap={"3"}>Customer Support</ListHeader>
@@ -191,8 +290,8 @@ export default function Footer() {
                 target="_blank"
                 href={"tel:917405095969"}
                 display={"flex"}
-                flexDirection={"row"}
                 alignItems={"center"}
+                flexDirection={"row"}
               >
                 <FaPhoneAlt
                   alignItems={"center"}
@@ -207,7 +306,7 @@ export default function Footer() {
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 target="_blank"
-                 alignItems={"center"}
+                alignItems={"center"}
                 href={"mailto:care@suryanorganic.com"}
               >
                 <IoMail
@@ -218,7 +317,7 @@ export default function Footer() {
                 care@suryanorganic.com
               </Link>
             </Stack>
-            <Stack mt={{ md: 3 }} >
+            <Stack  mt={{ md: 3 }}>
               {/* <ListHeader align={"flex-start"}>Talk To Our Vaidya</ListHeader>
               <Link
                 textDecoration="none"
@@ -247,13 +346,11 @@ export default function Footer() {
               {/* </Stack>
 
             <Stack align={"flex-start"} gap={"3"} ml={{ lg: 10 }} color="brand.900"> */}
-              <Stack >
-                <ListHeader marginBottom={5}>
-                We accept payments via
-                </ListHeader>
-              </Stack>
+              <ListHeader align={"flex-start"} marginBottom={5}>
+              We accept payments via
+              </ListHeader>
               <Image
-                ml={"-15px"}
+              ml={{base:"-17px"}}
                 src={
                   "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/footer/payment method.png hnghngh.png"
                 }
@@ -278,6 +375,8 @@ export default function Footer() {
           </Text>
         </Box>
       </Container>
+      {loginInfo.isLoggedIn && <CartPopUp />}
+<WhatsUp/>
     </>
   );
 }
