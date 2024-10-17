@@ -98,6 +98,9 @@ export default function Home() {
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
   const [sections, setSections] = useState([]);
+  
+  const [servicesSection, setServicesSection] = useState();
+  
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
   const isMobiles = width <= 768;
@@ -110,16 +113,16 @@ export default function Home() {
     init();
     //getHomePageData();
     getBlogs();
-    getImage();
+    getLowerSection();
   }, []);
 
-  async function getHomePageData() {
-    const response = await client.get("/home");
-    if (response.data.status === true) {
-      setHome(response.data);
-    }
-    setLoading(false);
-  }
+  // async function getHomePageData() {
+  //   const response = await client.get("/home");
+  //   if (response.data.status === true) {
+  //     setHome(response.data);
+  //   }
+  //   setLoading(false);
+  // }
   async function getBlogs() {
     const params = {};
     const response = await client.get("/home/blogs/", {
@@ -137,6 +140,27 @@ export default function Home() {
     });
     if (response.data.status === true) {
       setSections(response.data.data);
+    }
+  }
+
+
+  async function getLowerSection() {
+    const params = {};
+    const response = await client.get("/lower-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setSections(response.data.data);
+     
+      const ourServicesSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+      
+     
+     
+      setServicesSection(ourServicesSection);
+     
+     
     }
   }
 
@@ -355,38 +379,38 @@ export default function Home() {
         </SimpleGrid>
       </Container>
      
-      <Container maxW={{ base: "100vw", md: "container.xl" }} px={0}>
-        <Box
-          w="100%"
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            fontSize={{md:33,base:20}}
-            mx="auto"
-            align={"center"}
-            my={"5"}
-            pb={"10px"}
-          >
-             {sections?.length >0 && sections[1].label}
-          </Heading>
-        </Box>
-        <Box display={"flex"} justifyContent={"center"}>
-          <LazyLoadImage
-            src={sections?.length > 0 && sections[1]?.images[0].image}
-            w={{ base: "100%", md: "100%" }}
-            alt=""
-            py={4}
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Box>
-      
-      </Container>
+      {servicesSection?.length > 0 &&
+        servicesSection[0]?.is_visible_on_website === true && (
+          <Container maxW={{ base: "100vw", md: "container.xl" }}>
+           
+              <Heading
+                color="brand.500"
+                fontSize={{ md: 33, base: 20 }}
+                mx="auto"
+                align={"center"}
+                my={"5"}
+                pb={"10px"}
+              >
+                {servicesSection?.length > 0 && servicesSection[0].label}
+              </Heading>
+           
+            <Box display={"flex"} justifyContent={"center"}>
+              <LazyLoadImage
+                src={
+                  servicesSection?.length > 0 &&
+                  servicesSection[0]?.images[0].image
+                }
+                w={{ base: "100%", md: "100%" }}
+                alt=""
+                py={4}
+                style={{
+                  opacity: 1,
+                  transition: "opacity 0.7s", // Note the corrected syntax here
+                }}
+              />
+            </Box>
+          </Container>
+        )}
       <ScrollToTop />
       <Footer />
      
