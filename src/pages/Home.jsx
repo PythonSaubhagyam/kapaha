@@ -195,7 +195,7 @@ export default function Home() {
           color={"text.500"}
           bgColor={"bg.500"}
           textAlign={{ base: "center", md: "start" }}
-          //px={{ base: 2, md: 8 }}
+          px={{ base: 2, md: 8 }}
           py={4}
          // my={7}
         >
