@@ -215,7 +215,7 @@ export default function Footer() {
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 as={RouterLink}
-                to={"/privacy-policy"}
+                to={"/PrivacyPolicy"}
               >
                 Privacy Policy
               </Link>
