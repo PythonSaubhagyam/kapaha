@@ -1,4 +1,4 @@
-// import React from "react";
+ import React,{useState} from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
@@ -27,6 +27,7 @@ import { HiOutlineSpeakerphone } from "react-icons/hi";
 import { BiSupport } from "react-icons/bi";
 import checkLogin from "../utils/checkLogin";
 import Router from "../routes/routes";
+import LoginModal from "../components/LoginModal";
 
 const testimonials = [
   {
@@ -57,6 +58,7 @@ const testimonials = [
 ];
 
 function SubscriptionPlans() {
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   return (
     <>
       <Navbar />
@@ -204,7 +206,7 @@ function SubscriptionPlans() {
           <Button
             colorScheme="brand"
             size="lg"
-            onClick={() => Router.navigate("/login")}
+            onClick={() =>setIsLoginModalOpen(true)}
           >
             Login to join SOSE Elite
           </Button>
@@ -462,6 +464,12 @@ function SubscriptionPlans() {
           </Accordion>
         </Box>
       </Container>
+      {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
       <Footer />
     </>
   );

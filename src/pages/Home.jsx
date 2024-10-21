@@ -50,6 +50,8 @@ import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import Testimonials from "../components/testimonials";
 import ScrollToTop from "../components/ScrollToTop";
+import LoginModal from "../components/LoginModal";
+import checkLogin from "../utils/checkLogin";
 
 const imageInfo = [
   {
@@ -98,6 +100,12 @@ export default function Home() {
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
   const [sections, setSections] = useState([]);
+  const loginInfo = checkLogin();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const checkOrSetUDIDInfo = CheckOrSetUDID();
+  const [showPopup, setShowPopup] = useState(
+    sessionStorage.getItem("hasShownPopup")
+  );
   
   const [servicesSection, setServicesSection] = useState();
   
@@ -114,6 +122,9 @@ export default function Home() {
     //getHomePageData();
     getBlogs();
     getLowerSection();
+    if (showPopup === null && !loginInfo.isLoggedIn) {
+      setIsLoginModalOpen(true);
+    }
   }, []);
 
   // async function getHomePageData() {
@@ -411,6 +422,12 @@ export default function Home() {
             </Box>
           </Container>
         )}
+        {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
       <ScrollToTop />
       <Footer />
      

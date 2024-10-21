@@ -13,10 +13,13 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import client from "../setup/axiosClient";
 import { useNavigate } from "react-router-dom";
+import LoginModal from "../components/LoginModal";
+import checkLogin from "../utils/checkLogin";
 
 export default function ResetPassword() {
     const [email, setEmail] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const toast = useToast();
     const navigate = useNavigate();
 
@@ -33,7 +36,7 @@ export default function ResetPassword() {
                     duration: 4000,
                     isClosable: true,
                 });
-                navigate("/login");
+                setIsLoginModalOpen(true)
             } else {
                 toast({
                     title: `${response.data.message}`,
@@ -94,6 +97,12 @@ export default function ResetPassword() {
                     </Stack>
                 </form>
             </Container>
+            {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
             <Footer />
         </>
     );
