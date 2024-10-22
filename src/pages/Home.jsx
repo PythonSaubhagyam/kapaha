@@ -100,15 +100,20 @@ export default function Home() {
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
   const [sections, setSections] = useState([]);
+  const [AboutSection, setAboutSection] = useState();
+  const [MaskSection, setMaskSection] = useState();
+  const [PrecausionSection, setPrecausionSection] = useState();
+  const [MainProductSection, setMainProductSection] = useState();
+  const [NonGmoSection, setNonGmoSectionSection] = useState();
   const loginInfo = checkLogin();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const checkOrSetUDIDInfo = CheckOrSetUDID();
   const [showPopup, setShowPopup] = useState(
     sessionStorage.getItem("hasShownPopup")
   );
-  
+
   const [servicesSection, setServicesSection] = useState();
-  
+
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
   const isMobiles = width <= 768;
@@ -116,12 +121,14 @@ export default function Home() {
   useEffect(() => {
     const init = async () => {
       await CheckOrSetUDID();
-       };
-  
+    };
+
     init();
     //getHomePageData();
     getBlogs();
     getLowerSection();
+    getUpper();
+
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
@@ -144,16 +151,6 @@ export default function Home() {
     }
     setLoading(false);
   }
-  async function getImage() {
-    const params = {};
-    const response = await client.get("/lower-section", {
-      params: params,
-    });
-    if (response.data.status === true) {
-      setSections(response.data.data);
-    }
-  }
-
 
   async function getLowerSection() {
     const params = {};
@@ -162,18 +159,44 @@ export default function Home() {
     });
     if (response.data.status === true) {
       setSections(response.data.data);
-     
+
       const ourServicesSection = response.data.data?.filter(
         (section) => section.id === 2
       );
-      
-     
-     
+
       setServicesSection(ourServicesSection);
-     
-     
     }
   }
+
+  const getUpper = async () => {
+    const response = await client.get("/kapaha-section");
+
+    if (response.data.status === true) {
+      setSections(response.data.data);
+
+      const ourAboutSection = response.data.data?.filter(
+        (section) => section.id === 1
+      );
+      const ourMaskSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+      const ourPrecausionSection = response.data.data?.filter(
+        (section) => section.id === 3
+      );
+      const ourMainProductSection = response.data.data?.filter(
+        (section) => section.id === 4
+      );
+      const ourNonGmoSectionSection = response.data.data?.filter(
+        (section) => section.id === 5
+      );
+
+      setAboutSection(ourAboutSection);
+      setMaskSection(ourMaskSection);
+      setPrecausionSection(ourPrecausionSection);
+      setMainProductSection(ourMainProductSection);
+      setNonGmoSectionSection(ourNonGmoSectionSection);
+    }
+  };
 
   return (
     <>
@@ -192,162 +215,161 @@ export default function Home() {
         )}
         {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
+      {AboutSection?.length > 0 &&
+        AboutSection[0]?.is_visible_on_website === true && (
+          <Container
+            maxW={"container.xl"}
+            mb={8}
+            //mt={2}
+            px={0}
+            textAlign={"center"}
+          >
+            <Text
+              fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
+              fontWeight={500}
+              color={"text.500"}
+              bgColor={"bg.500"}
+              textAlign={{ base: "center", md: "start" }}
+              px={{ base: 2, md: 8 }}
+              py={4}
+              // my={7}
+            >
+              {AboutSection?.length > 0 && AboutSection[0]?.label}
+            </Text>
+            <Text
+              color={"text.300"}
+              px={{ base: 15, lg: 20 }}
+              fontSize={{ base: "sm", lg: "lg" }}
+              textAlign={"justify"}
+              whiteSpace={"pre-line"}
+            >
+              {AboutSection?.length > 0 && AboutSection[0]?.description}
+            </Text>
+            <Box mt={5}>
+              <Link
+                fontWeight={700}
+                color={"brand.500"}
+                as={RouterLink}
+                to={"/about-us"}
+                border={"1px"}
+                borderColor={"brand.500"}
+                p={3}
+                borderRadius={"10px"}
+                _hover={{
+                  textDecoration: "none",
+                  bgColor: "brand.500",
+                  color: "white",
+                }}
+              >
+                Read more
+              </Link>
+            </Box>
+          </Container>
+        )}
+      {MaskSection?.length > 0 &&
+        MaskSection[0]?.is_visible_on_website === true && (
+          <Container mb={5} px={0} maxW={"container.xl"} centerContent>
+            <LazyLoadImage
+              src={MaskSection?.length > 0 && MaskSection[0]?.image}
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+              }}
+            />{" "}
+          </Container>
+        )}
+      {PrecausionSection?.length > 0 &&
+        PrecausionSection[0]?.is_visible_on_website === true && (
+          <Container mb={5} px={0} maxW={"container.xl"} centerContent>
+            <Text m={{ md: 3, base: 4 }} whiteSpace="pre-line">
+              {PrecausionSection?.length > 0 &&
+                PrecausionSection[0]?.description}
+            </Text>
 
-      <Container
-        maxW={"container.xl"}
-        mb={8}
-        //mt={2}
-        px={0}
-        textAlign={"center"}
-      >
-        <Text
-          fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
-          fontWeight={500}
-          color={"text.500"}
-          bgColor={"bg.500"}
-          textAlign={{ base: "center", md: "start" }}
-          px={{ base: 2, md: 8 }}
-          py={4}
-         // my={7}
-        >
-          About कपा:
-        </Text>
-        <Text
-          color={"text.300"}
-          px={{ base: 15, lg: 20 }}
-          fontSize={{ base: "sm", lg: "lg" }}
-          textAlign={"justify"}
-        >
-          A Manufacturer and Exporter of Knitted garments focusing /
-          specialising in Cotton and Bamboo clothing. Over 7 years of experience
-          in working with Top Brands in India. We assure our customers of the
-          highest quality and outstanding service.
-          <br/><br/>
-          Management structure : Our Company is committed to total quality
-          control & timely shipments.
-          <br/><br/>
-          We have professional merchandisers who handle all details of specific
-          customers, which ensures clear - communication & execution of orders .
-          We specialise in the middle to higher end of market . We understand
-          the International Market & the needs of customers . We are regularly
-          making photo & salesmen samples for our customer as per their
-          requirements.
-          <br />
-          <br/>
-        </Text>
-        
+            <LazyLoadImage
+              src={
+                PrecausionSection[0]?.images?.length > 0 &&
+                PrecausionSection[0]?.images[0]?.image
+              }
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+              }}
+            />
+            <LazyLoadImage
+              src={
+                PrecausionSection[0]?.images?.length > 0 &&
+                PrecausionSection[0]?.images[1]?.image
+              }
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+              }}
+            />
+          </Container>
+        )}
+      {MainProductSection?.length > 0 &&
+        MainProductSection[0]?.is_visible_on_website === true && (
+          <Container mb={5} px={0} maxW={"container.xl"} centerContent>
+            <Flex
+              flexDirection={{ md: "row", base: "column" }}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <Text
+                m={3}
+                width={{ md: "48%", base: "90%" }}
+                whiteSpace="pre-line"
+              >
+                {MainProductSection?.length > 0 &&
+                  MainProductSection[0]?.description}
+              </Text>
+              <Image
+                src={MainProductSection[0]?.image}
+                width={{ md: 445, base: 200 }}
+                height={{ md: 345, base: 150 }}
+                alt=""
+                style={{
+                  opacity: 1,
+                  transition: "opacity 0.7s", // Note the corrected syntax here
+                }}
+              />
+            </Flex>
 
-        <Link
-          fontWeight={700}
-          color={"brand.500"}
-          as={RouterLink}
-          to={"/about-us"}
-          border={"1px"}
-          borderColor={"brand.500"}
-          p={3}
-          borderRadius={"10px"}
-          _hover={{textDecoration:"none",bgColor:"brand.500",color:"white"}}
-        >
-          Read more
-        </Link>
-      </Container>
+            <Link
+              fontWeight={600}
+              color={"brand.500"}
+              as={RouterLink}
+              to={"/"}
+              border={"1px"}
+              borderColor={"brand.500"}
+              px={3}
+              py={2}
+              _hover={{
+                bgColor: "brand.500",
+                color: "#fff",
+                textDecoration: "none",
+              }}
+              borderRadius={"10px"}
+            >
+              Buy now
+            </Link>
+          </Container>
+        )}
 
-      <Container mb={5} px={0} maxW={"container.xl"} centerContent>
-        <LazyLoadImage
-          src={require("../assets/Home/cotton mask.jpg")}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-
-        <UnorderedList m={{md:3,base:4}}>
-          <ListItem m={2}>
-            This Face Mask are made with 2 layers of white cotton.
-          </ListItem>
-          <ListItem m={2}>
-            {" "}
-            2 layer filtration system, helps to block harmful dust particles &
-            droplets Anti-pollution.{" "}
-          </ListItem>
-          <ListItem m={2}>
-            {" "}
-            This mask are anti-dust, reusable & washable and Its face coverage
-            is wide and maximum protection with soft elastic ear loops.
-          </ListItem>
-          <ListItem m={2}>
-            This mask is great for protecting your airways from dust, allergens,
-            chemicals and smoke to help you breathe easier and stay germ-free.
-          </ListItem>
-        </UnorderedList>
-
-        <LazyLoadImage
-          src={require("../assets/Home/right wrong wrong.jpg")}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-        <LazyLoadImage
-          src={require("../assets/Home/nocolor.jpg")}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-        <Flex flexDirection={{md:"row",base:"column"}} alignItems={"center"} justifyContent={"space-between"}>
-          <UnorderedList m={3} width={{md:"48%",base:"90%"}}>
-            <ListItem m={2}>
-              <b>Care Instructions :-</b> Laundry Wash, In Cool Water, Do Not
-              Use Brush
-            </ListItem>
-            <ListItem m={2}>
-              <b>Fabric :-</b> Cotton Blend
-            </ListItem>
-            <ListItem m={2}>
-              <b>Size :-</b> For Adults
-            </ListItem>
-            <ListItem m={2}>
-              <b>Gender :-</b> Unisex
-            </ListItem>
-            <ListItem m={2}>
-              <b>Colour :-</b> White
-            </ListItem>
-            <ListItem m={2}>
-              <b>Unifit :-</b> Fits all face types.
-            </ListItem>
-          </UnorderedList>
-          <Image
-            src={require("../assets/Home/mask mm.png")}
-            width={{md:445,base:200}}
-            height={{md:345,base:150}}
-            alt=""
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Flex>
-        <Link
-          fontWeight={600}
-          color={"brand.500"}
-          as={RouterLink}
-          to={"/"}
-          border={"1px"}
-          borderColor={"brand.500"}
-          px={3}
-          py={2}
-          _hover={{bgColor:"brand.500",color:"#fff",textDecoration:"none"}}
-          borderRadius={"10px"}
-        >
-          Buy now
-        </Link>
-       
-        <Image my={5}  w={{md:"65%",base:"90%"}} src={require("../assets/Home/kapah_icon.jpg")} />
-      </Container>
+      {NonGmoSection?.length > 0 &&
+        NonGmoSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"container.xl"} py={0} centerContent>
+            <Image
+              my={5}
+              w={{ md: "65%", base: "90%" }}
+              src={NonGmoSection[0]?.image}
+            />
+          </Container>
+        )}
 
       <Container backgroundColor={"bg.500"} maxW={"container.xl"} py={2}>
         <SimpleGrid
@@ -389,22 +411,21 @@ export default function Home() {
           </Stat>
         </SimpleGrid>
       </Container>
-     
+
       {servicesSection?.length > 0 &&
         servicesSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
-           
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 20 }}
-                mx="auto"
-                align={"center"}
-                my={"5"}
-                pb={"10px"}
-              >
-                {servicesSection?.length > 0 && servicesSection[0].label}
-              </Heading>
-           
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 20 }}
+              mx="auto"
+              align={"center"}
+              my={"5"}
+              pb={"10px"}
+            >
+              {servicesSection?.length > 0 && servicesSection[0].label}
+            </Heading>
+
             <Box display={"flex"} justifyContent={"center"}>
               <LazyLoadImage
                 src={
@@ -422,7 +443,7 @@ export default function Home() {
             </Box>
           </Container>
         )}
-        {!checkLogin().isLoggedIn && (
+      {!checkLogin().isLoggedIn && (
         <LoginModal
           isOpen={isLoginModalOpen}
           onClose={() => setIsLoginModalOpen(false)}
@@ -430,7 +451,7 @@ export default function Home() {
       )}
       <ScrollToTop />
       <Footer />
-     
+
       {/* </>
       )} */}
     </>
