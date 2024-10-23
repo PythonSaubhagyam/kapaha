@@ -105,6 +105,7 @@ export default function Home() {
   const [PrecausionSection, setPrecausionSection] = useState();
   const [MainProductSection, setMainProductSection] = useState();
   const [NonGmoSection, setNonGmoSectionSection] = useState();
+  const [statisticsSection, setStatisticsSection] = useState([]);
   const loginInfo = checkLogin();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const checkOrSetUDIDInfo = CheckOrSetUDID();
@@ -128,19 +129,23 @@ export default function Home() {
     getBlogs();
     getLowerSection();
     getUpper();
+    getStatisticsSection();
 
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
   }, []);
 
-  // async function getHomePageData() {
-  //   const response = await client.get("/home");
-  //   if (response.data.status === true) {
-  //     setHome(response.data);
-  //   }
-  //   setLoading(false);
-  // }
+  async function getStatisticsSection() {
+    const params = {};
+    const response = await client.get("/statistics-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setStatisticsSection(response?.data?.data);
+    }
+  }
+
   async function getBlogs() {
     const params = {};
     const response = await client.get("/home/blogs/", {
@@ -371,8 +376,10 @@ export default function Home() {
           </Container>
         )}
 
-      <Container backgroundColor={"bg.500"} maxW={"container.xl"} py={2}>
-        <SimpleGrid
+    
+      {statisticsSection?.length > 0 && (
+        <Container backgroundColor={"bg.500"} maxW={"container.xl"} py={2}>
+         <SimpleGrid
           columns={[2, 3, null, 4]}
           px={6}
           maxW={"container.xl"}
@@ -382,36 +389,18 @@ export default function Home() {
           spacingX={{ base: "10vw", md: "30px" }}
           spacingY="40px"
         >
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              82062+
-            </StatNumber>
-            <StatHelpText color="gray.600">Ethical Farmers</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              8745+
-            </StatNumber>
-            <StatHelpText color="gray.600">Satisfied Clients</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              17+
-            </StatNumber>
-            <StatHelpText color="gray.600">Stores</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              30+
-            </StatNumber>
-            <StatHelpText color="gray.600">Countries</StatHelpText>
-          </Stat>
-        </SimpleGrid>
-      </Container>
-
+            {statisticsSection?.length > 0 &&
+              statisticsSection?.map((data) => (
+                <Stat>
+                  <StatNumber fontSize={{ base: "3xl", md: "3xl" }}>
+                    {data?.value}
+                  </StatNumber>
+                  <StatHelpText color="gray.600">{data?.name}</StatHelpText>
+                </Stat>
+              ))}
+          </SimpleGrid>
+        </Container>
+      )}
       {servicesSection?.length > 0 &&
         servicesSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>

@@ -239,6 +239,29 @@ export default function Shop() {
       console.error("Error fetching data:", error);
     }
   }
+
+  useEffect(() => {
+    setCurrentPage(1);
+    const params = {
+      page: 1,
+    };
+
+    if (categoryId) {
+      params.category = categoryId;
+      params.category_name = category_name;
+    }
+    if (searchPar.get("brand")) {
+      params.brand = brand;
+      params.brand_name = brand_name;
+    }
+
+    if (prod_search !== null) {
+      params.search = prod_search;
+    }
+
+    setSearchParams(params);
+   
+  }, [sortKey,tagWise, productFoam]);
   // useEffect(() => {
   //   const filtered = categories.filter((item) => item.id === categoryId);
   //   setFilteredData(filtered);
