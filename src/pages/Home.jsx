@@ -95,7 +95,7 @@ export default function Home() {
   const [isFullScreen] = useMediaQuery("(min-width: 768px)");
   const width = useBreakpointValue({ base: "100%", lg: "100%" });
   const height = useBreakpointValue({ base: "300", lg: "400" });
-  const [banners, setBanners] = useState(Details);
+  const [banners, setBanners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
@@ -126,6 +126,7 @@ export default function Home() {
 
     init();
     //getHomePageData();
+    getBanners();
     getBlogs();
     getLowerSection();
     getUpper();
@@ -135,6 +136,22 @@ export default function Home() {
       setIsLoginModalOpen(true);
     }
   }, []);
+
+  async function getBanners() {
+    setLoading(true);
+    try {
+      const response = await client.get("/ecommerce/banners/?sequence=Upper");
+
+      if (response.data.status === true) {
+        setBanners(response?.data?.banner);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error fetching data:", error);
+    }
+  }
 
   async function getStatisticsSection() {
     const params = {};
@@ -216,7 +233,7 @@ export default function Home() {
         {loading === true ? (
           <Skeleton h={489}></Skeleton>
         ) : (
-          <Carousel banners={banners} />
+          <Carousel banners={banners?.length > 0 && banners} />
         )}
         {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
