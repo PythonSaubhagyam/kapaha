@@ -41,6 +41,7 @@ import GiftVoucher from "../pages/GiftVoucher";
 import LoginSystem from "../pages/LoginSystem";
 import Bussiness from "../pages/Bussiness";
 import Export from "../pages/Export";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
 
 const Router = createBrowserRouter([
   {
@@ -76,6 +77,11 @@ const Router = createBrowserRouter([
   {
     path: "/checkout",
     element: <Checkout />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/privacy-policy",
+    element: <PrivacyPolicy />,
     errorElement: <ErrorPage />,
   },
   {
