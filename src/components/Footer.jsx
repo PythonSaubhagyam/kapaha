@@ -31,7 +31,7 @@ export default function Footer() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const [isMobiles, setIsMobiles] = useState(window.innerWidth <= 600);
   const loginInfo = checkLogin();
-  const [isLoggedIn, setIsLoggedIn] = useState(checkLogin().isLoggedIn)
+  const [isLoggedIn, setIsLoggedIn] = useState(checkLogin().isLoggedIn);
   const checkOrSetUDIDInfo = CheckOrSetUDID();
   let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
 
@@ -77,7 +77,8 @@ export default function Footer() {
             fontSize={{ base: "sm", lg: "md" }}
             className="scrolling-text"
           >
-           For deliveries in the USA, UAE, UK, Singapore, Canada and Australia email us at {" "}
+            For deliveries in the USA, UAE, UK, Singapore, Canada and Australia
+            email us at{" "}
             <Link
               target="_blank"
               href="mailto:export@suryanorganic.com"
@@ -106,10 +107,7 @@ export default function Footer() {
 
             {/* <SimpleGrid columns={{ base: 1, md: 3 }}> */}
             <Stack color="text.300">
-              <Stack
-                ml={{ md: "50%" }}
-               
-              >
+              <Stack ml={{ md: "50%" }}>
                 <ListHeader style={{ color: "text.500" }}>
                   Quick Links
                 </ListHeader>
@@ -293,7 +291,7 @@ export default function Footer() {
               </Stack> */}
             {/* </Stack> */}
             <Stack color="text.300" mt={{ md: 3 }}>
-              <Stack >
+              <Stack>
                 <ListHeader gap={"3"}>Customer Support</ListHeader>
               </Stack>
               <Link
@@ -329,7 +327,7 @@ export default function Footer() {
                 care@suryanorganic.com
               </Link>
             </Stack>
-            <Stack  mt={{ md: 3 }}>
+            <Stack mt={{ md: 3 }}>
               {/* <ListHeader align={"flex-start"}>Talk To Our Vaidya</ListHeader>
               <Link
                 textDecoration="none"
@@ -359,10 +357,10 @@ export default function Footer() {
 
             <Stack align={"flex-start"} gap={"3"} ml={{ lg: 10 }} color="brand.900"> */}
               <ListHeader align={"flex-start"} marginBottom={5}>
-              We accept payments via
+                We accept payments via
               </ListHeader>
               <Image
-              ml={{base:"-17px"}}
+                ml={{ base: "-17px" }}
                 src={
                   "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/footer/payment method.png hnghngh.png"
                 }
@@ -388,7 +386,7 @@ export default function Footer() {
         </Box>
       </Container>
       {isLoggedIn && <CartPopUp />}
-<WhatsUp/>
+      <WhatsUp />
     </>
   );
 }

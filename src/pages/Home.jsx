@@ -129,7 +129,7 @@ export default function Home() {
     getBanners();
     getBlogs();
     getLowerSection();
-    getUpper();
+    getUpperSection();
     getStatisticsSection();
 
     if (showPopup === null && !loginInfo.isLoggedIn) {
@@ -190,7 +190,7 @@ export default function Home() {
     }
   }
 
-  const getUpper = async () => {
+  const getUpperSection = async () => {
     const response = await client.get("/kapaha-section");
 
     if (response.data.status === true) {
