@@ -35,7 +35,7 @@ import {
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { Select } from "chakra-react-select";
 import CapitalizeLetter from "../utils/CommanFunction";
-
+import ScrollToTop from "../components/ScrollToTop";
 // import Paginator from "../components/Paginator";
 
 export default function Shop() {

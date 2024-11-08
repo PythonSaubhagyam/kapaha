@@ -21,7 +21,7 @@ import { AsyncSelect } from "chakra-react-select";
 import checkLogin from "../utils/checkLogin";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import { useLocation } from "react-router-dom";
-
+import ScrollToTop from "../components/ScrollToTop";
 export default function ContactUs() {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
@@ -426,6 +426,7 @@ export default function ContactUs() {
         </form>
 
       </Container>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );
