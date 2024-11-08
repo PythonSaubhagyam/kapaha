@@ -15,24 +15,29 @@ import { useLocation, useNavigate } from "react-router-dom";
 import client from "../setup/axiosClient";
 import CheckOrSetUDID from "../utils/checkOrSetUDID";
 import checkLogin from "../utils/checkLogin";
+
 const CartPopUp = () => {
   const [CartCount, setCartCount] = useState(
     localStorage.getItem("cart_counter") ?? 0
   );
-  const checkOrSetUDIDInfo = CheckOrSetUDID();
+
   const loginInfo = checkLogin();
-  let headers = { visitor: checkOrSetUDIDInfo?.visitor_id };
-  if (loginInfo.isLoggedIn === true) {
-    headers = { Authorization: `token ${loginInfo?.token}` };
-  }
+
   const [total, setTotal] = useState(
     localStorage.getItem("product_total") === null ||
-    localStorage.getItem("product_total") === undefined
+      localStorage.getItem("product_total") === undefined
       ? 0
       : localStorage.getItem("product_total")
   );
+
   useEffect(() => {
     const updateProductTotal = async () => {
+      const checkOrSetUDIDInfo = await CheckOrSetUDID();
+      let headers = { visitor: checkOrSetUDIDInfo?.visitor_id };
+
+      if (loginInfo.isLoggedIn === true) {
+        headers = { Authorization: `token ${loginInfo?.token}` };
+      }
       const cartRes = await client.get("/cart/", {
         headers: headers,
       });
@@ -44,14 +49,19 @@ const CartPopUp = () => {
         setTotal(cartRes.data.data.final_total);
       }
     };
+
     CartEmitter.on("updateProductTotal", updateProductTotal);
+
     return () => {
       CartEmitter.off("updateProductTotal", updateProductTotal);
     };
   }, []);
+
   const location = useLocation();
   const navigate = useNavigate();
+
   const isEliteMember = localStorage.getItem("is_sose_elite_user") === "true";
+
   return (
     <>
       <Container
@@ -106,7 +116,7 @@ const CartPopUp = () => {
           justifyContent={"space-between"}
           px={3}
           py={2}
-          backgroundColor={"#d39e24a1"}
+          backgroundColor={"#593c33ba"}
           color={"#fff"}
           w={{ md: 600, base: "100%" }}
           opacity={0.9}
@@ -141,4 +151,5 @@ const CartPopUp = () => {
     </>
   );
 };
+
 export default CartPopUp;
