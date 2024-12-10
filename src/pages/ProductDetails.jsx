@@ -36,7 +36,7 @@ import dompurify from "dompurify";
 import Loader from "../components/Loader";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ProductImageSection from "../components/ProductImageSection";
-
+import { Helmet } from "react-helmet";
 function ButtonIncrement(props) {
   return (
     <Button
@@ -211,6 +211,19 @@ export default function ProductDetails() {
   };
   return (
     <>
+    {" "}
+      <Helmet>
+        <title>{productData?.name || "My Store"}</title>
+        <meta name="description" content={productData?.description} />
+        <meta property="og:title" content={productData?.name} />
+        <meta property="og:description" content={productData?.description} />
+        <meta property="og:price" content={productData?.base_price} />
+        <meta property="og:Rating" content={productData?.average_rating?.average_rating}/>
+        <meta property="og:Stock" content={"In Stock"} />
+        <meta property="og:Delivery" content={"4-7 day delivery"} />
+        <meta property="og:image" content={productData?.images[0]} />
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
       <Navbar />
       {loading ? (
         <Center h="80vh" w="100%">
