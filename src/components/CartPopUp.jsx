@@ -152,7 +152,7 @@ const CartPopUp = () => {
           justifyContent={"space-between"}
           px={3}
           py={2}
-          backgroundColor={"#593c33ba"}
+          backgroundColor={"#7e705f"}
           color={"#fff"}
           w={{ md: 600, base: "100%" }}
           opacity={0.9}
