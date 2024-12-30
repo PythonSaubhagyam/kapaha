@@ -94,7 +94,7 @@ export default function Shop() {
   
     init();
     getProducts(); // eslint-disable-next-line
-  }, [page, categoryId, sortKey, prod_search, brand, tagWise, productFoam]);
+  }, [ categoryId, sortKey, prod_search, brand, tagWise, productFoam]);
 
   // useEffect(() => {
   //   getCategories();
@@ -207,10 +207,10 @@ export default function Shop() {
 
   async function getFilter() {
     try {
-      const [tagsResponse, foamsResponse, brandResponse] = await Promise.all([
+      const [tagsResponse, foamsResponse] = await Promise.all([
         client.get("/web/product-tags/list/"),
         client.get("/web/product-foams/list/"),
-        client.get("/web/brand/list/"),
+        //client.get("/web/brand/list/"),
       ]);
       let TagsArray = [];
       tagsResponse?.data?.data?.map((data) =>
@@ -228,14 +228,14 @@ export default function Shop() {
         })
       );
       setProductFoamsArray(ProductFoamsArray);
-      let BrandArray = [];
-      brandResponse?.data?.data?.map((data) =>
-        BrandArray.push({
-          label: CapitalizeLetter(data.name),
-          value: data.id,
-        })
-      );
-      setBrandArray(BrandArray);
+      // let BrandArray = [];
+      // brandResponse?.data?.data?.map((data) =>
+      //   BrandArray.push({
+      //     label: CapitalizeLetter(data.name),
+      //     value: data.id,
+      //   })
+      // );
+      // setBrandArray(BrandArray);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
